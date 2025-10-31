@@ -19,7 +19,7 @@ jobs:
   test:
     timeout-minutes: 15
     runs-on: ubuntu-latest
-    name: Test sharedworkflows-testharness
+    name: Tests
 
     steps:
       - uses: actions/checkout@v4
