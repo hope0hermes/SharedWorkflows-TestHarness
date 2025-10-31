@@ -11,4 +11,6 @@ on:
 
 jobs:
   create-release:
+    permissions:
+      contents: write
     uses: hope0hermes/SharedWorkflows/.github/workflows/reusable-create-release.yml@main
