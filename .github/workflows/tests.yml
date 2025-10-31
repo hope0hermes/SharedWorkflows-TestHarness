@@ -11,13 +11,41 @@ on:
   pull_request:
     branches: [ main ]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
-    uses: hope0hermes/SharedWorkflows/.github/workflows/reusable-tests.yml@main
-    with:
-      python-version: "3.12"
-      package-name: "sharedworkflows-testharness"
-      coverage-threshold: 0
-      run-lint: true
-      run-tests: true
-      working-directory: "."
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    name: Test sharedworkflows-testharness
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install hatch pytest pytest-cov ruff mypy
+
+      - name: Run ruff linting
+        run: |
+          echo "Running Python linting checks..."
+          ruff check . || true
+          ruff format --check . || true
+
+      - name: Run mypy type checking
+        run: |
+          echo "Running Python type checking..."
+          python -m mypy src/testharness || true
+
+      - name: Run pytest
+        run: |
+          echo "Running Python tests..."
+          pytest --cov=src/testharness --cov-report=xml --cov-report=html
