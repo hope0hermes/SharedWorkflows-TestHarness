@@ -1,0 +1,23 @@
+# Tests Workflow
+#
+# This workflow tests the SharedWorkflows reusable-tests workflow.
+# It runs linting and tests on every pull request to main and after merges to main.
+
+name: Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    uses: hope0hermes/SharedWorkflows/.github/workflows/reusable-tests.yml@main
+    with:
+      python-version: "3.12"
+      package-name: "sharedworkflows-testharness"
+      coverage-threshold: 0
+      run-lint: true
+      run-tests: true
+      working-directory: "."

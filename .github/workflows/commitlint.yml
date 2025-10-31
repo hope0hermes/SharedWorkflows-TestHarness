@@ -1,0 +1,14 @@
+# Lint Commit Messages
+#
+# This workflow tests the SharedWorkflows reusable-commitlint workflow.
+# It validates that commit messages follow the Conventional Commits format.
+
+name: Lint Commit Messages
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  commitlint:
+    uses: hope0hermes/SharedWorkflows/.github/workflows/reusable-commitlint.yml@main

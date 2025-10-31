@@ -1,0 +1,150 @@
+[build-system]
+requires = ["hatchling>=1.5.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sharedworkflows-testharness"
+dynamic = ["version"]
+description = "Test harness for SharedWorkflows reusable workflows and composite actions"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { file = "LICENSE" }
+keywords = ["testing", "ci-cd", "github-actions", "workflows"]
+authors = [
+    { name = "Israel Barragan", email = "abraham0vidal@gmail.com" },
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Testing",
+]
+
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/hope0hermes/SharedWorkflows-TestHarness"
+Issues = "https://github.com/hope0hermes/SharedWorkflows-TestHarness/issues"
+Source = "https://github.com/hope0hermes/SharedWorkflows-TestHarness"
+"SharedWorkflows" = "https://github.com/hope0hermes/SharedWorkflows"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.4",
+    "pytest-cov>=6.0.0",
+    "mypy>=1.14.1",
+    "ruff>=0.9.1",
+]
+
+[tool.hatch.metadata]
+
+[tool.hatch.version]
+path = "src/testharness/__init__.py"
+
+[tool.hatch.build]
+packages = ["src/testharness"]
+
+[tool.hatch.envs.default]
+dependencies = [
+    "pytest",
+    "mypy",
+    "ruff",
+]
+
+[tool.hatch.envs.test]
+dependencies = [
+    "pytest",
+    "pytest-cov",
+    "ruff",
+]
+[tool.hatch.envs.test.scripts]
+default = ["pytest {args}"]
+cov = ["pytest --cov=src/testharness --cov-report=term-missing --cov-report=xml --cov-report=html {args}"]
+
+[tool.hatch.envs.lint]
+dependencies = [
+    "ruff",
+    "mypy",
+]
+[tool.hatch.envs.lint.scripts]
+default = [
+    "ruff check . {args}",
+    "ruff format --check . {args}",
+    "python -m mypy src/testharness {args}",
+]
+check = "ruff check . {args}"
+format-check = "ruff format --check . {args}"
+mypy = "python -m mypy src/testharness {args}"
+
+[tool.hatch.envs.fmt]
+dependencies = [
+    "ruff",
+]
+[tool.hatch.envs.fmt.scripts]
+format = "ruff format . --verbose {args}"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "C4"]
+ignore = []
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+docstring-code-format = true
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+    "--showlocals",
+    "--tb=short",
+    "--cov=src/testharness",
+    "--cov-report=term-missing:skip-covered",
+    "--cov-report=html",
+    "--cov-report=xml",
+]
+markers = [
+    "unit: Unit tests (fast, isolated)",
+    "integration: Integration tests (workflows)",
+]
+filterwarnings = [
+    "error",
+    "ignore::DeprecationWarning",
+]
+
+[tool.coverage.run]
+source = ["src/testharness"]
+omit = [
+    "*/tests/*",
+    "*/__pycache__/*",
+    "*/site-packages/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]

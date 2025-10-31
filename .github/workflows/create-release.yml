@@ -1,0 +1,14 @@
+# Create Release Workflow
+#
+# This workflow tests the SharedWorkflows reusable-create-release workflow.
+# It automatically creates a GitHub Release after a version bump PR is merged.
+
+name: Create Release
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  create-release:
+    uses: hope0hermes/SharedWorkflows/.github/workflows/reusable-create-release.yml@main
