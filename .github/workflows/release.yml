@@ -1,0 +1,19 @@
+# Release Workflow
+#
+# This workflow tests the SharedWorkflows reusable-release workflow.
+# It automatically manages versioning and releases based on commit messages.
+
+name: Release
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  release:
+    uses: hope0hermes/SharedWorkflows/.github/workflows/reusable-release.yml@main
+    with:
+      package-path: "src/testharness/__init__.py"
+    secrets:
+      PAT_TOKEN: ${{ secrets.PAT_TOKEN }}

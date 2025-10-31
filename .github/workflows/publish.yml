@@ -1,0 +1,18 @@
+# Publish Workflow
+#
+# This workflow tests the SharedWorkflows reusable-publish workflow.
+# It publishes the package to GitHub Packages after a release is created.
+
+name: Publish to GitHub Packages
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    uses: hope0hermes/SharedWorkflows/.github/workflows/reusable-publish.yml@main
+    with:
+      registry: github
+    secrets:
+      PUBLISH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
