@@ -12,6 +12,9 @@ on:
 
 jobs:
   release:
+    permissions:
+      contents: write
+      pull-requests: write
     uses: hope0hermes/SharedWorkflows/.github/workflows/reusable-release.yml@main
     with:
       package-path: "src/testharness/__init__.py"
