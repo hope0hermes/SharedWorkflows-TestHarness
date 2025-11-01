@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2025-11-01
+
+### Changed
+- ci: add debug job and workflow_dispatch trigger to create-release (#5)
+- fix: add required permissions to workflow jobs (#3)
+- feat: initial test harness setup for SharedWorkflows (#1)
+- ci: Initial repository setup and branch rules enforcement
+
+
 ### Added
 - Initial test harness setup for SharedWorkflows
 - Minimal Python package structure with version management
