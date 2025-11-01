@@ -2,14 +2,37 @@
 #
 # This workflow tests the SharedWorkflows reusable-create-release workflow.
 # It automatically creates a GitHub Release after a version bump PR is merged.
+#
+# Triggered by:
+# 1. Push to main (after version bump PR is merged)
+# 2. Manual trigger via workflow_dispatch
 
 name: Create Release
 
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Debug commit info
+        run: |
+          echo "=== Latest commit ==="
+          git log -1 --pretty=format:"%H %s %b"
+          echo ""
+          echo "=== Latest 5 commits ==="
+          git log --oneline -5
+          echo ""
+          echo "=== Commit subject only ==="
+          git log -1 --pretty=format:"%s"
+
   create-release:
     permissions:
       contents: write
