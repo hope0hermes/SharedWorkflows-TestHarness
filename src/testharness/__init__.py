@@ -6,6 +6,7 @@ A minimal test package for validating SharedWorkflows CI/CD pipeline.
 
 __version__ = "0.2.0"
 
+
 def get_version() -> str:
     """Get the package version.
 
@@ -13,7 +14,6 @@ def get_version() -> str:
         The current package version string.
     """
     return __version__
-
 
 
 def hello() -> str:
