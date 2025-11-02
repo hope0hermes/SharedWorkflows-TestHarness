@@ -4,7 +4,7 @@ SharedWorkflows Test Harness.
 A minimal test package for validating SharedWorkflows CI/CD pipeline.
 """
 
-__version__ = "0.4.0"
+__version__ = "0.5.0"
 
 
 def get_version() -> str:
