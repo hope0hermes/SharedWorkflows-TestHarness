@@ -35,10 +35,10 @@ def get_info() -> dict[str, str]:
 
 def is_published() -> bool:
     """Check if this version was successfully published.
-    
+
     This function exists to test the complete publishing pipeline,
     from commit to GitHub Packages.
-    
+
     Returns:
         True if the package was published successfully.
     """
