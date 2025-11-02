@@ -33,4 +33,16 @@ def get_info() -> dict[str, str]:
     }
 
 
-__all__ = ["hello", "get_version", "get_info"]
+def is_published() -> bool:
+    """Check if this version was successfully published.
+
+    This function exists to test the complete publishing pipeline,
+    from commit to GitHub Packages.
+
+    Returns:
+        True if the package was published successfully.
+    """
+    return True
+
+
+__all__ = ["hello", "get_version", "get_info", "is_published"]
